@@ -15,14 +15,14 @@ class CreateAppRegistrarTest < ControllerTestSetup
     identifier = "{identifier: jumpstartlab}"
 
     assert_equal identifier, last_response.body
-    assert_equal 1, AppRegistrar.count
+    assert_equal 1, Application.count
   end
 
   def test_returns_400_when_request_is_missing_identifier
     post '/sources', 'rootUrl=http://jumpstartlab.com'
 
     assert_equal 400, last_response.status
-    assert_equal 0, AppRegistrar.count
+    assert_equal 0, Application.count
     assert_equal "Missing Identifier", last_response.body
   end
 
@@ -30,7 +30,7 @@ class CreateAppRegistrarTest < ControllerTestSetup
     post '/sources', 'identifier=jumpstartlab'
 
     assert_equal 400, last_response.status
-    assert_equal 0, AppRegistrar.count
+    assert_equal 0, Application.count
     assert_equal "Missing root URL", last_response.body
   end
 
@@ -39,7 +39,7 @@ class CreateAppRegistrarTest < ControllerTestSetup
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 
     assert_equal 403, last_response.status
-    assert_equal 1, AppRegistrar.count
+    assert_equal 1, Application.count
     assert_equal "Identifier Already Exists", last_response.body
   end
 

@@ -6,13 +6,13 @@ module TrafficSpy
     end
 
     post '/sources' do
-      if AppRegistrar.all.any? {|app| app.identifier == params[:identifier]}
+      if Application.all.any? {|app| app.identifier == params[:identifier]}
 
         status 403
         body "Identifier Already Exists"
 
       else
-        app_reg  = AppRegistrar.create(identifier: params[:identifier],
+        app_reg  = Application.create(identifier: params[:identifier],
                                        root_url: params[:rootUrl])
 
         if app_reg.save
