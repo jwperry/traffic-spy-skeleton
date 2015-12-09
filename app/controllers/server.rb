@@ -19,10 +19,7 @@ module TrafficSpy
     end
 
     get '/sources/:IDENTIFIER' do
-      
-
-
-
+      @identifier_name = 
       erb :application_details
     end
 
