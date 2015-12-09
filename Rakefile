@@ -2,6 +2,8 @@ require "bundler"
 Bundler.require
 
 require "sinatra/activerecord/rake"
+require "rake/testtask"
+
 
 require 'rake/testtask'
 
