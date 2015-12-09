@@ -11,6 +11,12 @@ class ApplicationDetails
       url_count.has_key?(id) ? (url_count[id] += 1) : (url_count[id] = 1)
     end
     url_count
+
+    url_count.values.sort_by do |a, b|
+      b
+    end
+
+    url_count
   end
 end
 

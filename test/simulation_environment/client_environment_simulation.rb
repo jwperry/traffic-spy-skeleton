@@ -30,10 +30,11 @@ class ClientEnvironmentSimulator < ControllerTestSetup
 
   def client_request
     resolution = @resolution.sample
-    payload_data = {"url": "http://#{@client}.com/#{@client_url}",
+    client = @client.sample
+    payload_data = {"url": "http://#{client}.com/#{@client_url.sample}",
                     "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..24)}:#{rand(0..60)}:#{rand(0..60)} -#{rand(0..2400)}",
                     "respondedIn": rand(0..30),
-                    "referredBy": "http://#{@client.sample}.com",
+                    "referredBy": "http://#{client}.com",
                     "requestType": "#{@request_type.sample}",
                     "parameters": [],
                     "eventName": "#{@event_name.sample}",
@@ -42,7 +43,8 @@ class ClientEnvironmentSimulator < ControllerTestSetup
                     "resolutionHeight": "#{resolution[1]}",
                     "ip": "#{@ip.sample}"}.to_json
 
-    post '/sources/jumpstartlab/data', {payload: payload_data}
+
+    post "/sources/#{client}/data", {payload: payload_data}
   end
 
 

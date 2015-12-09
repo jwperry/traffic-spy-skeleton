@@ -1,7 +1,7 @@
 class PayloadRequestProcessor
 
   def self.json_parse?(params)
-    (params[:payload] = JSON.parse(params[:payload])) if !missing_payload?(params)
+    (params['payload'] = JSON.parse(params[:payload])) if !missing_payload?(params)
     params
   end
 
@@ -14,6 +14,10 @@ class PayloadRequestProcessor
     Payload.all.any? {|pay| pay.requestedAt == params[:payload]["requestedAt"]}
   end
 
+  def self.url_already_created?(params)
+    FullUrlPath.all.any? {|path| path.full_url_path == params[:payload]["url"]}
+  end
+
   def self.not_registered?(params)
     # binding.pry
     Application.all.none? {|app| app.identifier == params["IDENTIFIER"]}
@@ -21,6 +25,11 @@ class PayloadRequestProcessor
 
   def self.create_payload(params)
     payload = Payload.create(requestedAt: params[:payload]["requestedAt"], respondedIn: params[:payload]["respondedIn"])
+
+    FullUrlPath.create(full_url_path: params["payload"]["url"]) unless url_already_created?(params)
+    full_url_path = FullUrlPath.all.find { |url| url[:full_url_path] == params[:payload]["url"] }
+    full_url_path.payloads << payload
+
     application = Application.all.find { |app| app[:identifier] == params["IDENTIFIER"] }
     application.payloads << payload
   end
