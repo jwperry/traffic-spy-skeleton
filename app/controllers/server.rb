@@ -1,4 +1,5 @@
 module TrafficSpy
+
   class Server < Sinatra::Base
 
     get '/' do
@@ -6,28 +7,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      if Application.all.any? {|app| app.identifier == params[:identifier]}
-
-        status 403
-        body "Identifier Already Exists"
-
-      else
-        app_reg  = Application.create(identifier: params[:identifier],
-                                       root_url: params[:rootUrl])
-
-        if app_reg.save
-          "{identifier: #{params[:identifier]}}"
-
-        else
-          status 400
-
-            if params.has_key?('identifier')
-              body "Missing root URL"
-            else
-              body "Missing Identifier"
-            end
-        end
-      end
+      rv = RequestValidator.validate_request(params)
+      status rv[:status]
+      body rv[:body]
     end
 
     not_found do
