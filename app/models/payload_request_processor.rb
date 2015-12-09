@@ -1,8 +1,7 @@
 class PayloadRequestProcessor
 
   def self.json_parse?(params)
-    (params[:payload] = JSON.parse(params[:payload])) if params[:payload] != nil
-    params
+    (params[:payload] = JSON.parse(params[:payload])) if !missing_payload?(params)
   end
 
   def self.missing_payload?(params)
@@ -10,10 +9,12 @@ class PayloadRequestProcessor
   end
 
   def self.already_received?(params)
+    # binding.pry
     Payload.all.any? {|pay| pay.requestedAt == params[:payload]["requestedAt"]}
   end
 
   def self.not_registered?(params)
+    # binding.pry
     Application.all.none? {|app| app.identifier == params["IDENTIFIER"]}
   end
 
