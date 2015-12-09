@@ -4,19 +4,10 @@ class ApplicationDetails
   end
 
   def get_full_path_frequencies(query_identifier)
-    identifier_id = (Application.all.find { |app| app.identifier == query_identifier }).id
-    matching_url_ids = (Payload.all.map { |pay| pay.full_url_path_id.to_s if pay.application_id == identifier_id }).compact
-    url_count = {}
-    matching_url_ids.each do |id|
-      url_count.has_key?(id) ? (url_count[id] += 1) : (url_count[id] = 1)
-    end
-    url_count
+    url_count = Payload.where("application_id = 2").group(:full_url_path_id).count
 
-    url_count.values.sort_by do |a, b|
-      b
-    end
-
-    url_count
+    url_order = url_count.sort_by {|a, b| b}.reverse.to_h
+    url_order.map{|a, b| a}
   end
 end
 
