@@ -38,5 +38,4 @@ class PayloadRequestProcessor
         {status: 200, body: "200 OK"}
       end
   end
-
 end

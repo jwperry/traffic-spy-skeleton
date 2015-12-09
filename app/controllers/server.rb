@@ -18,6 +18,14 @@ module TrafficSpy
       body   prp[:body]
     end
 
+    get '/sources/:IDENTIFIER' do
+      
+
+
+
+      erb :application_details
+    end
+
     not_found do
       erb :error
     end
