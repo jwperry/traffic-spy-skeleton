@@ -1,4 +1,3 @@
-
 class RequestValidator
 
   def self.validate_request(params)
