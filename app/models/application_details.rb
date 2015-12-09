@@ -4,30 +4,14 @@ class ApplicationDetails
   end
 
   def get_full_path_frequencies(query_identifier)
-    # get ID of identifier
     identifier_id = (Application.all.find { |app| app.identifier == query_identifier }).id
-    # XXXXXXXXXXXXXXget all full_url_paths linked to that ID
-    # select all payloads where application_id maps to identifier in applications table
-    matching_url_ids = Payload.all.map { |pay| pay.full_url_path_id if pay.application_id == identifier_id }
-    # iterate through all payloads mapping to application_id and use them as keys
-    
-    # in a hash...increment value (starting at 0) by 1 for every match
-
-    # ...?
-
-    # profit
-
-
+    matching_url_ids = (Payload.all.map { |pay| pay.full_url_path_id.to_s if pay.application_id == identifier_id }).compact
+    url_count = {}
+    matching_url_ids.each do |id|
+      url_count.has_key?(id) ? (url_count[id] += 1) : (url_count[id] = 1)
+    end
+    url_count
   end
-
-
-
-
-
-
-
-
-
 end
 
 # 1 Most requested URLS to least requested URLS (url)
