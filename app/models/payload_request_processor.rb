@@ -2,6 +2,7 @@ class PayloadRequestProcessor
 
   def self.json_parse?(params)
     (params[:payload] = JSON.parse(params[:payload])) if !missing_payload?(params)
+    params
   end
 
   def self.missing_payload?(params)
