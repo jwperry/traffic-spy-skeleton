@@ -1,60 +1,58 @@
 class PayloadRequestProcessor
 
-  # def process_payload
-  #   if valid_json?
-  #     parse_payload
-    # else
-    # end
-  # end
-  #
-  # def valid_json?
-  #   !@raw_data.nil?
-  # end
+  attr_accessor :raw_data
 
-  def self.json_parse?(params)
-    (params['payload'] = JSON.parse(params[:payload])) if !missing_payload?(params)
-    params
+  def initialize(params)
+    @raw_data = params
   end
 
-  def self.missing_payload?(params)
-    params[:payload] == nil
+  def process_payload
+    if valid_json?
+      parse_payload
+    end
+    raw_data
   end
 
-  def self.already_received?(params)
-    Payload.all.any? {|pay| pay.requestedAt == params[:payload]["requestedAt"]}
+  def valid_json?
+    !raw_data["payload"].nil?
   end
 
-  def self.url_already_created?(params)
-    FullUrlPath.all.any? {|path| path.full_url_path == params[:payload]["url"]}
+  def parse_payload
+    raw_data['payload'] = JSON.parse(raw_data["payload"])
   end
 
-  def self.not_registered?(params)
-    Application.all.none? {|app| app.identifier == params["IDENTIFIER"]}
+  def missing_payload?
+    raw_data["payload"] == nil
   end
 
-  def self.create_payload(params)
-    payload = Payload.create(requestedAt: params[:payload]["requestedAt"],
-                            respondedIn: params[:payload]["respondedIn"])
-                            # url: Url.find_or_create_by(params[:payload]["url"]))
+  def already_received?
+    Payload.all.any? {|pay| pay.requestedAt == raw_data['payload']["requestedAt"]}
+  end
 
-    FullUrlPath.create(full_url_path: params[:payload]["url"]) unless url_already_created?(params)
-    full_url_path = FullUrlPath.all.find { |url| url[:full_url_path] == params[:payload]["url"] }
-    full_url_path.payloads << payload
+  def not_registered?
+    Application.all.none? {|app| app.identifier == raw_data["identifier"]}
+  end
 
-    application = Application.all.find { |app| app[:identifier] == params["IDENTIFIER"] }
+  def create_payload
+    payload = Payload.find_or_create_by(requestedAt: raw_data['payload']["requestedAt"],
+                             respondedIn: raw_data['payload']["respondedIn"],
+                             url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id)
+
+    application = Application.find_by(identifier: raw_data['identifier'])
     application.payloads << payload
   end
 
-  def self.process_request(params)
-    params = json_parse?(params)
-      if missing_payload?(params)
+  def process_request
+    binding.pry
+    process_payload
+      if missing_payload?
         {status: 400, body: "Missing Payload - 400 Bad Request"}
-      elsif already_received?(params)
+      elsif already_received?
         {status: 403, body: "Already Received Request - 403 Forbidden"}
-      elsif not_registered?(params)
+      elsif not_registered?
         {status: 403, body: "Not Registered - 403 Forbidden"}
       else
-        create_payload(params)
+        create_payload
         {status: 200, body: "200 OK"}
       end
   end

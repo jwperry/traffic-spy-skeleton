@@ -1,5 +1,5 @@
 class AddRootUrlToApplications < ActiveRecord::Migration
   def change
-    add_column :applications, :root_url, :string
+    add_column :applications, :rootUrl, :string
   end
 end

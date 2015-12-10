@@ -1,5 +1,5 @@
-class AddFullUrlPathIdToPayloads < ActiveRecord::Migration
+class AddUrlIdToPayloads < ActiveRecord::Migration
   def change
-    add_column :payloads, :full_url_path_id, :integer
+    add_column :payloads, :url_id, :integer
   end
 end

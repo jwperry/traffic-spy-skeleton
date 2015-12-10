@@ -11,25 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209190830) do
+ActiveRecord::Schema.define(version: 20151210205420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "applications", force: :cascade do |t|
     t.string "identifier"
-    t.string "root_url"
-  end
-
-  create_table "full_url_paths", force: :cascade do |t|
-    t.string "full_url_path"
+    t.string "rootUrl"
   end
 
   create_table "payloads", force: :cascade do |t|
     t.string  "requestedAt"
     t.integer "respondedIn"
     t.integer "application_id"
-    t.integer "full_url_path_id"
+    t.integer "url_id"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string "url"
   end
 
 end

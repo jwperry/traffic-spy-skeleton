@@ -2,13 +2,13 @@ class ApplicationDetails
 
   def self.get_full_path_frequencies(query_identifier)
     id = Application.all.find {|app| app.identifier == query_identifier}.id
-    url_count = Payload.where("application_id = #{id}").group(:full_url_path_id).count
+    url_count = Payload.where("application_id = #{id}").group(:url_id).count
 
     url_order = url_count.sort_by {|a, b| b}.reverse.to_h
 
     hash = {}
     url_order.each do |a, b|
-      a = FullUrlPath.find(a).full_url_path
+      a = Url.find(a).url
       hash[a] = b
     end
     [query_identifier, hash]

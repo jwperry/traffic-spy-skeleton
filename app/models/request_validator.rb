@@ -5,7 +5,7 @@ class RequestValidator
       {status: 403, body: "Identifier Already Exists - 403 Forbidden"}
     elsif application_save?(params)
       {status: 200, body: "{identifier: #{params[:identifier]}}"}
-    elsif missing_root_url?(params)
+    elsif missing_rootUrl?(params)
       {status: 400, body: "Missing root URL - 400 Bad Request"}
     elsif missing_identifier?(params)
       {status: 400, body: "Missing Identifier - 400 Bad Request"}
@@ -17,11 +17,11 @@ class RequestValidator
   end
 
   def self.application_save?(params)
-    application  = Application.new(identifier: params[:identifier], root_url: params[:rootUrl])
+    application  = Application.new(identifier: params[:identifier], rootUrl: params[:rootUrl])
     application.save
   end
 
-  def self.missing_root_url?(params)
+  def self.missing_rootUrl?(params)
     params.has_key?('identifier')
   end
 

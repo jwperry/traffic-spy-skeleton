@@ -33,7 +33,7 @@
 #   end
 #
 #   def test_returns_403_when_app_identifier_already_exists
-#     Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+#     Application.create(identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com")
 #     # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 #     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 #

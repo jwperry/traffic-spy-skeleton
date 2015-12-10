@@ -1,7 +1,7 @@
-class CreateFullUrlPaths < ActiveRecord::Migration
+class CreateUrls < ActiveRecord::Migration
   def change
-    create_table :full_url_paths do |t|
-      t.string :full_url_path
+    create_table :urls do |t|
+      t.string :url
     end
   end
 end
