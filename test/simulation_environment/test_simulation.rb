@@ -6,8 +6,6 @@ class SimulationTest < ControllerTestSetup
   def test_simulation
     ces = ClientEnvironmentSimulator.new
     ces.start_simulation
-
-    binding.pry
   end
 
 

@@ -18,8 +18,8 @@ module TrafficSpy
       body   prp[:body]
     end
 
-    get '/sources/:IDENTIFIER' do
-      @identifier_name = 
+    get '/sources/:IDENTIFIER' do |identifier|
+      @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
       erb :application_details
     end
 

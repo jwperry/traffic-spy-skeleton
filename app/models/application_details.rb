@@ -1,14 +1,19 @@
 class ApplicationDetails
 
-  def initialize
-  end
-
-  def get_full_path_frequencies(query_identifier)
-    url_count = Payload.where("application_id = 2").group(:full_url_path_id).count
+  def self.get_full_path_frequencies(query_identifier)
+    id = Application.all.find {|app| app.identifier == query_identifier}.id
+    url_count = Payload.where("application_id = #{id}").group(:full_url_path_id).count
 
     url_order = url_count.sort_by {|a, b| b}.reverse.to_h
-    url_order.map{|a, b| a}
+
+    hash = {}
+    url_order.each do |a, b|
+      a = FullUrlPath.find(a).full_url_path
+      hash[a] = b
+    end
+    hash
   end
+
 end
 
 # 1 Most requested URLS to least requested URLS (url)

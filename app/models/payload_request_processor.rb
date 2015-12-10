@@ -10,7 +10,6 @@ class PayloadRequestProcessor
   end
 
   def self.already_received?(params)
-    # binding.pry
     Payload.all.any? {|pay| pay.requestedAt == params[:payload]["requestedAt"]}
   end
 
@@ -19,14 +18,13 @@ class PayloadRequestProcessor
   end
 
   def self.not_registered?(params)
-    # binding.pry
     Application.all.none? {|app| app.identifier == params["IDENTIFIER"]}
   end
 
   def self.create_payload(params)
     payload = Payload.create(requestedAt: params[:payload]["requestedAt"], respondedIn: params[:payload]["respondedIn"])
 
-    FullUrlPath.create(full_url_path: params["payload"]["url"]) unless url_already_created?(params)
+    FullUrlPath.create(full_url_path: params[:payload]["url"]) unless url_already_created?(params)
     full_url_path = FullUrlPath.all.find { |url| url[:full_url_path] == params[:payload]["url"] }
     full_url_path.payloads << payload
 
