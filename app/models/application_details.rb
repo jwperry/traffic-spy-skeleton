@@ -1,6 +1,7 @@
 class ApplicationDetails
 
   def self.get_full_path_frequencies(query_identifier)
+    binding.pry
     id = Application.all.find {|app| app.identifier == query_identifier}.id
     url_count = Payload.where("application_id = #{id}").group(:full_url_path_id).count
 

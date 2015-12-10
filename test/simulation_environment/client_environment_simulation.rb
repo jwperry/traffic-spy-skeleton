@@ -64,7 +64,7 @@ class ClientEnvironmentSimulator < ControllerTestSetup
   def client_request_development
       resolution = @resolution.sample
       client = @client.sample
-      `curl -i -d "payload={"url": "http://#{client}.com/#{@client_url.sample}",
+      `curl -i -d 'payload={"url": "http://#{client}.com/#{@client_url.sample}",
                       "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..24)}:#{rand(0..60)}:#{rand(0..60)} -#{rand(0..2400)}",
                       "respondedIn": #{rand(0..30)},
                       "referredBy": "http://#{client}.com",
@@ -74,7 +74,9 @@ class ClientEnvironmentSimulator < ControllerTestSetup
                       "userAgent": "#{@user_agent}",
                       "resolutionWidth": "#{resolution[0]}",
                       "resolutionHeight": "#{resolution[1]}",
-                      "ip": "#{@ip.sample}"}" http://localhost:9393/sources/#{client}/data`
+                      "ip": "#{@ip.sample}"}' http://localhost:9393/sources/#{client}/data`
+
+                      p "imported payload"
     end
 
 

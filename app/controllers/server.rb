@@ -19,6 +19,7 @@ module TrafficSpy
     end
 
     get '/sources/:IDENTIFIER' do |identifier|
+      binding.pry
       @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
       erb :application_details
     end
