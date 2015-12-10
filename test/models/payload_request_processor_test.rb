@@ -39,6 +39,16 @@ class PayloadRequestProcessorTest < ControllerTestSetup
     assert_equal({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}, parsed_payload.raw_data)
   end
 
+  def test_valid_json
+    parsed_payload = PayloadRequestProcessor.new({'payload' => nil})
+    refute parsed_payload.valid_json?
+  end
+
+  def test_parse_payload
+    parsed_payload = PayloadRequestProcessor.new({"payload" => @params})
+    assert_equal ({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}), parsed_payload.process_payload
+  end
+
   def test_if_nil_json_parse_returns_input
     parsed_payload = PayloadRequestProcessor.new({"payload" => nil})
     parsed_payload.process_payload
@@ -73,21 +83,13 @@ class PayloadRequestProcessorTest < ControllerTestSetup
 
 end
 
-# # def test_payload_is_already_received
-#   # ERROR MESSAGE GIVEN IS FAILED ASSERTION, NO MESSAGE. ALREADY RECEIVED IS ONLY GETTING THE POST ONCE
-#   # params = @params
-#   # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-#   # post '/sources/jumpstartlab/data', {payload: params}
-#   # parsed_payload = PayloadRequestProcessor.json_parse?(payload: params)
-#   # # binding.pry
-#   # do_this = PayloadRequestProcessor.already_received?(parsed_payload)
-#   # assert PayloadRequestProcessor.already_received?(parsed_payload)
-#
-#    # ATTEMPT 2
-#   # params = {payload: @params}
-#   # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-#   # post '/sources/jumpstartlab/data', {payload: params}
-#   # parsed_payload = JSON.parse(params[:payload])
-#   # params[:payload] = parsed_payload
-#   # assert PayloadRequestProcessor.already_received?(params[:payload])
-# # end
+def test_payload_is_already_received
+  # ERROR MESSAGE GIVEN IS FAILED ASSERTION, NO MESSAGE. ALREADY RECEIVED IS ONLY GETTING THE POST ONCE
+  params = @params
+  post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+  post '/sources/jumpstartlab/data', {payload: params}
+  parsed_payload = PayloadRequestProcessor.json_parse?(payload: params)
+  do_this = PayloadRequestProcessor.already_received?(parsed_payload)
+  assert PayloadRequestProcessor.already_received?(parsed_payload)
+
+end

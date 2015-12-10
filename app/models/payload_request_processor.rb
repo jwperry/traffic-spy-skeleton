@@ -14,7 +14,7 @@ class PayloadRequestProcessor
   end
 
   def valid_json?
-    !raw_data["payload"].nil?
+    !raw_data["payload"].nil? 
   end
 
   def parse_payload
@@ -43,7 +43,6 @@ class PayloadRequestProcessor
   end
 
   def process_request
-    binding.pry
     process_payload
       if missing_payload?
         {status: 400, body: "Missing Payload - 400 Bad Request"}

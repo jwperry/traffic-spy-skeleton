@@ -14,7 +14,7 @@ class RequestValidatorTest < ControllerTestSetup
 
     assert RequestValidator.application_save?(params)
   end
-#
+
   def test_application_does_not_save_wrong_key
     params = {identifier: "jumpstartlab", rootrl: "http://jumpstartlab.com"}
 
