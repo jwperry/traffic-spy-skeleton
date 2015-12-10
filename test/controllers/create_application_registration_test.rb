@@ -33,7 +33,8 @@ class CreateAppRegistrarTest < ControllerTestSetup
   end
 
   def test_returns_403_when_app_identifier_already_exists
-    post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
+    Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 
     assert_equal 403, last_response.status

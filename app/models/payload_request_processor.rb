@@ -1,5 +1,16 @@
 class PayloadRequestProcessor
 
+  # def process_payload
+  #   if valid_json?
+  #     parse_payload
+    # else
+    # end
+  # end
+  #
+  # def valid_json?
+  #   !@raw_data.nil?
+  # end
+
   def self.json_parse?(params)
     (params['payload'] = JSON.parse(params[:payload])) if !missing_payload?(params)
     params
@@ -22,7 +33,9 @@ class PayloadRequestProcessor
   end
 
   def self.create_payload(params)
-    payload = Payload.create(requestedAt: params[:payload]["requestedAt"], respondedIn: params[:payload]["respondedIn"])
+    payload = Payload.create(requestedAt: params[:payload]["requestedAt"],
+                            respondedIn: params[:payload]["respondedIn"])
+                            # url: Url.find_or_create_by(params[:payload]["url"]))
 
     FullUrlPath.create(full_url_path: params[:payload]["url"]) unless url_already_created?(params)
     full_url_path = FullUrlPath.all.find { |url| url[:full_url_path] == params[:payload]["url"] }

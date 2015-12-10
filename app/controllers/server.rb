@@ -9,6 +9,7 @@ module TrafficSpy
     post '/sources' do
       rv = RequestValidator.validate_request(params)
       status rv[:status]
+      # status rv.status
       body   rv[:body]
     end
 
@@ -19,7 +20,8 @@ module TrafficSpy
     end
 
     get '/sources/:IDENTIFIER' do |identifier|
-      @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
+      @application = Application.find_by(identifier: identifier)
+      # @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
       erb :application_details
     end
 

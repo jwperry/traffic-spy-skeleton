@@ -41,7 +41,6 @@ class ClientEnvironmentSimulator < ControllerTestSetup
     end
   end
 
-
   def client_request_test
     resolution = @resolution.sample
     client = @client.sample

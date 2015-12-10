@@ -17,7 +17,7 @@ class CreateProcessingRequestsTest < ControllerTestSetup
               }.to_json
 
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
-
+    # Application.create
     post '/sources/jumpstartlab/data', {payload: payload_data}
     assert_equal 200, last_response.status
     assert_equal 1, Payload.count
@@ -25,6 +25,7 @@ class CreateProcessingRequestsTest < ControllerTestSetup
   end
 
   def test_returns_400_bad_request_if_payload_missing
+    #Application.create
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
     post '/sources/jumpstartlab/data', {}
 

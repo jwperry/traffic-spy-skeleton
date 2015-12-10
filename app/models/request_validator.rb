@@ -17,7 +17,7 @@ class RequestValidator
   end
 
   def self.application_save?(params)
-    application  = Application.create(identifier: params[:identifier], root_url: params[:rootUrl])
+    application  = Application.new(identifier: params[:identifier], root_url: params[:rootUrl])
     application.save
   end
 

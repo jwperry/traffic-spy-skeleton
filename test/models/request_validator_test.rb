@@ -3,6 +3,7 @@ require_relative '../test_helper'
 class RequestValidatorTest < ControllerTestSetup
 
   def test_application_does_exist
+    # Application.create()
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 
     params = {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}

@@ -6,6 +6,7 @@ class UserSeesUrlDataTest < FeatureTest
 
   def setup
     ces = ClientEnvironmentSimulator.new
+    # ces = TestData.new.generate
     ces.start_simulation_test
   end
 
@@ -15,7 +16,7 @@ class UserSeesUrlDataTest < FeatureTest
   # end
 
   def test_user_sees_url_stats
-    self.setup
+    # self.setup
     visit('/sources/google')
     within("body") do
       assert page.has_content?("google")
