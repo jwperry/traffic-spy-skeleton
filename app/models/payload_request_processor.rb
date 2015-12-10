@@ -14,7 +14,7 @@ class PayloadRequestProcessor
   end
 
   def valid_json?
-    !raw_data["payload"].nil? 
+    !raw_data["payload"].nil?
   end
 
   def parse_payload

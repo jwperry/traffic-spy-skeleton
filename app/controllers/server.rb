@@ -13,13 +13,13 @@ module TrafficSpy
       body   rv[:body]
     end
 
-    post '/sources/:IDENTIFIER/data' do
-      prp = PayloadRequestProcessor.process_request(params)
+    post '/sources/:identifier/data' do
+      prp = PayloadRequestProcessor.new(params).process_request
       status prp[:status]
       body   prp[:body]
     end
 
-    get '/sources/:IDENTIFIER' do |identifier|
+    get '/sources/:identifier' do |identifier|
       # @application = Application.find_by(identifier: identifier)
       @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
       erb :application_details
