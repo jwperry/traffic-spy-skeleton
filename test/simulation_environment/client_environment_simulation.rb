@@ -13,10 +13,10 @@ class ClientEnvironmentSimulator < ControllerTestSetup
   end
 
 
-  def start_simulation_testing
-    client_registration
+  def start_simulation_test
+    client_registration_test
 
-    30.times do
+    10.times do
       client_request_test
     end
   end
@@ -24,7 +24,7 @@ class ClientEnvironmentSimulator < ControllerTestSetup
   def start_simulation_development
     client_registration_development
 
-    30.times do
+    10.times do
       client_request_development
     end
   end

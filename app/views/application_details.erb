@@ -1,4 +1,6 @@
 <h1>Application Details</h1>
 
-
-<%= @sorted_url_frequency %>
+<h2> <%= @sorted_url_frequency[0] %> </h2>
+<% @sorted_url_frequency[1].each do |url, count| %>
+<h3><%=url%>:<%=count%></h3>
+<% end %>
