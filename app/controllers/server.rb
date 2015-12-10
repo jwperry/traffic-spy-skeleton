@@ -20,8 +20,8 @@ module TrafficSpy
     end
 
     get '/sources/:IDENTIFIER' do |identifier|
-      @application = Application.find_by(identifier: identifier)
-      # @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
+      # @application = Application.find_by(identifier: identifier)
+      @sorted_url_frequency = ApplicationDetails.get_full_path_frequencies(identifier)
       erb :application_details
     end
 
