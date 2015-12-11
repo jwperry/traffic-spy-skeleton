@@ -7,4 +7,9 @@ class Application < ActiveRecord::Base
   def sorted_urls
     payloads.group(:url).count.sort_by{|a,b| (b * -1)}.to_h
   end
+
+  def user_agents
+    payloads.group(:user_agent).count.sort_by{|a,b| (b * -1)}.to_h
+  end
+
 end

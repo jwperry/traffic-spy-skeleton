@@ -3,8 +3,8 @@ require_relative '../test_helper'
 class  TestData < ControllerTestSetup
 
   def initialize
-    @client = ["jumpstartlab", "google", "metacritic", "binglol"]
-    @client_url = ["images", "blog", "store", "fun_stuff"]
+    @client = ["google", "jumpstartlab", "metacritic"]
+    @client_url = ["images", "blog", "store", "blog", "store", "store"]
     @request_type = ["GET", "POST", "GET", "POST"]
     @event_name = ["Social", "Dog", "Dad?", "ComputerStuff"]
     @user_agent = ["Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -34,16 +34,16 @@ class  TestData < ControllerTestSetup
     @client.each do |client|
       @client_url.each_with_index do |iteration, index|
 
-        payload_data = {"url": "http://#{client}.com/#{@client_url[index]}",
+        payload_data = {"url": "http://#{client}.com/#{@client_url[index%4]}",
                       "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..24)}:#{rand(0..60)}:#{rand(0..60)} -#{rand(0..2400)}",
                       "respondedIn": rand(0..30),
                       "referredBy": "http://#{client}.com",
-                      "requestType": "#{@request_type[index]}",
+                      "requestType": "#{@request_type[index%4]}",
                       "parameters": [],
-                      "eventName": "#{@event_name[index]}",
+                      "eventName": "#{@event_name[index%4]}",
                       "userAgent": "#{@user_agent}",
-                      "resolutionWidth": "#{@resolution[index][0]}",
-                      "resolutionHeight": "#{@resolution[index][1]}",
+                      "resolutionWidth": "#{@resolution[index%4][0]}",
+                      "resolutionHeight": "#{@resolution[index%4][1]}",
                       "ip": "#{@ip[index]}"}.to_json
 
 

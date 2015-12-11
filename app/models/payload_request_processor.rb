@@ -2,13 +2,15 @@ class PayloadRequestProcessor
 
   attr_accessor :raw_data
 
-  def initialize(params)
+  def initialize(params, parser)
     @raw_data = params
+    @parser = parser
   end
 
   def process_payload
     if valid_json?
       parse_payload
+      parse_user_agent
     end
     raw_data
   end
@@ -19,6 +21,11 @@ class PayloadRequestProcessor
 
   def parse_payload
     raw_data['payload'] = JSON.parse(raw_data["payload"])
+  end
+
+  def parse_user_agent
+    ua_parse = @parser.parse(raw_data['payload']["userAgent"])
+    raw_data['payload']['userAgent'] = {'user_agent' => ua_parse.to_s, 'os' => ua_parse.os.to_s}
   end
 
   def missing_payload?
@@ -37,7 +44,7 @@ class PayloadRequestProcessor
     payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
                              responded_in: raw_data['payload']["respondedIn"],
                              url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id,
-                             user_agent_id: UserAgent.find_or_create_by(user_agent: UserAgentParser.parse(raw_data['payload']["user_agent"]).to_s).id)
+                             user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id)
 
     application = Application.find_by(identifier: raw_data['identifier'])
     application.payloads << payload

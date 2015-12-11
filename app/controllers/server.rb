@@ -2,6 +2,10 @@ module TrafficSpy
 
   class Server < Sinatra::Base
 
+    def initialize
+      @parser = UserAgentParser::Parser.new
+    end
+
     get '/' do
       erb :index
     end
@@ -14,7 +18,7 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      prp = PayloadRequestProcessor.new(params).process_request
+      prp = PayloadRequestProcessor.new(params, @parser).process_request
       status prp[:status]
       body   prp[:body]
     end
