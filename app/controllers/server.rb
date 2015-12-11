@@ -7,7 +7,7 @@ module TrafficSpy
     end
 
     post '/sources' do
-      rv = RequestValidator.validate_request(params)
+      rv = RequestValidator.new(params).validate_request
       status rv[:status]
       # status rv.status
       body   rv[:body]

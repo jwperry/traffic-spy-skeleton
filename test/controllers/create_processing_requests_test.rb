@@ -16,7 +16,7 @@ class CreateProcessingRequestsTest < ControllerTestSetup
                 "ip":"63.29.38.211"
               }.to_json
 
-    params = {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}
+    params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
     post '/sources/jumpstartlab/data', {payload: payload_data}
     assert_equal 200, last_response.status
@@ -25,7 +25,7 @@ class CreateProcessingRequestsTest < ControllerTestSetup
   end
 
   def test_returns_400_bad_request_if_payload_missing
-    params = {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}
+    params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
     post '/sources/jumpstartlab/data', {}
@@ -37,8 +37,8 @@ class CreateProcessingRequestsTest < ControllerTestSetup
 
   def test_returns_403_forbidden_if_already_received_payload_request
     payload_data = { "requestedAt":"2013-02-16 21:38:28 -0700", "respondedIn":37}.to_json
-    params = {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}
-    
+    params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
+
     Application.create(params)
     post '/sources/jumpstartlab/data', {payload: payload_data}
 

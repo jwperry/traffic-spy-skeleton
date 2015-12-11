@@ -26,7 +26,7 @@ class PayloadRequestProcessor
   end
 
   def already_received?
-    Payload.all.any? {|pay| pay.requestedAt == raw_data['payload']["requestedAt"]}
+    Payload.all.any? {|pay| pay.requested_at == raw_data['payload']["requestedAt"]}
   end
 
   def not_registered?
@@ -34,8 +34,8 @@ class PayloadRequestProcessor
   end
 
   def create_payload
-    payload = Payload.find_or_create_by(requestedAt: raw_data['payload']["requestedAt"],
-                             respondedIn: raw_data['payload']["respondedIn"],
+    payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
+                             responded_in: raw_data['payload']["respondedIn"],
                              url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id)
 
     application = Application.find_by(identifier: raw_data['identifier'])

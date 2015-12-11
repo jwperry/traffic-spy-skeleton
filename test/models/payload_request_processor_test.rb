@@ -72,7 +72,7 @@ class PayloadRequestProcessorTest < ControllerTestSetup
 
   def test_create_payload
 
-    params = {identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"}
+    params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
 
     parsed_payload = PayloadRequestProcessor.new(@processed_params)
