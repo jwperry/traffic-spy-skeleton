@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(version: 20151211023319) do
     t.string "root_url"
   end
 
+  create_table "full_url_paths", force: :cascade do |t|
+    t.string "full_url_path"
+  end
+
   create_table "payloads", force: :cascade do |t|
     t.string  "requested_at"
     t.integer "responded_in"

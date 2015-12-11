@@ -1,6 +1,20 @@
 <h1>Application Details</h1>
 
-<h2> <%= @sorted_url_frequency[0] %> </h2>
-<% @sorted_url_frequency[1].each do |url, count| %>
-<h3><%=url%>:<%=count%></h3>
+<h2> <%= @identifier %> </h2>
+
+<% @application.sorted_urls.each do |object, count| %>
+<h3><%=object.url%>:<%=count%></h3>
+<% end %>
+
+
+<% @application.user_agents.each do |object, count| %>
+<h3><%=object.user_agent%>:<%=count%></h3>
+<% end %>
+
+<% @application.user_agents.each do |object, count| %>
+<h3><%=object.os%>:<%=count%></h3>
+<% end %>
+
+<% @application.screen_resolutions.each do |object, count| %>
+<h3><%=object.width%> by <%=object.height%>:<%=count%></h3>
 <% end %>
