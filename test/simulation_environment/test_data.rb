@@ -29,9 +29,9 @@ class  TestData < ControllerTestSetup
 
   def client_request_test
     @client.each do |client|
-      @client_url.each_with_index do |iteration|
+      @client_url.each_with_index do |iteration, index|
 
-        payload_data = {"url": "http://#{client}.com/#{@client_url.sample}",
+        payload_data = {"url": "http://#{client}.com/#{@client_url[index]}",
                       "requestedAt": "#{rand(2014..2015)}-#{rand(1..12)}-#{rand(1..30)} #{rand(0..24)}:#{rand(0..60)}:#{rand(0..60)} -#{rand(0..2400)}",
                       "respondedIn": rand(0..30),
                       "referredBy": "http://#{client}.com",
@@ -39,8 +39,8 @@ class  TestData < ControllerTestSetup
                       "parameters": [],
                       "eventName": "#{@event_name[index]}",
                       "userAgent": "#{@user_agent}",
-                      "resolutionWidth": "#{resolution[index][0]}",
-                      "resolutionHeight": "#{resolution[index][1]}",
+                      "resolutionWidth": "#{@resolution[index][0]}",
+                      "resolutionHeight": "#{@resolution[index][1]}",
                       "ip": "#{@ip[index]}"}.to_json
 
 

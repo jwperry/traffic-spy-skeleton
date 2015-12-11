@@ -3,13 +3,7 @@ class Application < ActiveRecord::Base
   has_many :payloads
   has_many :urls, through: :payloads
 
-  def add_payload(payload)
-    self.payloads.build(:payload => payload)
+  def sorted_urls
+    payloads.group(:url).count.sort_by{|a,b| (b * -1)}.to_h
   end
-
-  # def sorted_urls
-    # urls.
-    # payloads.group(:url_id).count
-    # ActiveRecord #order method
-  # end
 end
