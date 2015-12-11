@@ -3,6 +3,7 @@ class Application < ActiveRecord::Base
   has_many :payloads
   has_many :urls, through: :payloads
   has_many :user_agents, through: :payloads
+  has_many :screen_resolutions, through: :payloads
 
   def sorted_urls
     payloads.group(:url).count.sort_by{|a,b| (b * -1)}.to_h
@@ -10,6 +11,10 @@ class Application < ActiveRecord::Base
 
   def user_agents
     payloads.group(:user_agent).count.sort_by{|a,b| (b * -1)}.to_h
+  end
+
+  def screen_resolutions
+    payloads.group(:screen_resolution).count.sort_by{|a,b| (b * -1)}.to_h
   end
 
 end

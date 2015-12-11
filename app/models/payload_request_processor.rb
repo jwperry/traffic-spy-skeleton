@@ -2,9 +2,9 @@ class PayloadRequestProcessor
 
   attr_accessor :raw_data
 
-  def initialize(params, parser)
+  def initialize(params)
     @raw_data = params
-    @parser = parser
+    @parser = UserAgentParser::Parser.new
   end
 
   def process_payload
@@ -44,8 +44,8 @@ class PayloadRequestProcessor
     payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
                              responded_in: raw_data['payload']["respondedIn"],
                              url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id,
-                             user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id)
-
+                             user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id,
+                             screen_resolution_id: ScreenResolution.find_or_create_by(height: raw_data['payload']["resolutionHeight"], width: raw_data['payload']["resolutionWidth"]).id)
     application = Application.find_by(identifier: raw_data['identifier'])
     application.payloads << payload
   end

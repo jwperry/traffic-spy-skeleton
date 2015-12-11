@@ -4,7 +4,6 @@ class PayloadRequestProcessorTest < ControllerTestSetup
 
   def setup
 
-    @parser = UserAgentParser::Parser.new
 
     @params = {"url": "http://jumpstartlab.com/blog",
                 "requestedAt": "2013-02-16 21:38:28 -0700",
@@ -36,38 +35,38 @@ class PayloadRequestProcessorTest < ControllerTestSetup
   end
 
   def test_json_parses
-    parsed_payload = PayloadRequestProcessor.new({"payload" => @params}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({"payload" => @params})
     parsed_payload.process_payload
 
     assert_equal({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}, parsed_payload.raw_data)
   end
 
   def test_valid_json
-    parsed_payload = PayloadRequestProcessor.new({'payload' => nil}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({'payload' => nil})
     refute parsed_payload.valid_json?
   end
 
   def test_parse_payload
-    parsed_payload = PayloadRequestProcessor.new({"payload" => @params}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({"payload" => @params})
     assert_equal ({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}), parsed_payload.process_payload
   end
 
   def test_if_nil_json_parse_returns_input
-    parsed_payload = PayloadRequestProcessor.new({"payload" => nil}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({"payload" => nil})
     parsed_payload.process_payload
 
     assert_equal({"payload"=>nil}, parsed_payload.raw_data)
   end
 
   def test_payload_is_missing
-    parsed_payload = PayloadRequestProcessor.new({"payload" => nil}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({"payload" => nil})
     parsed_payload.process_payload
 
     assert parsed_payload.missing_payload?
   end
 
   def test_identifier_is_not_registered
-    parsed_payload = PayloadRequestProcessor.new({"payload" => @params}, @parser)
+    parsed_payload = PayloadRequestProcessor.new({"payload" => @params})
     parsed_payload.process_payload
 
     assert parsed_payload.not_registered?
@@ -78,7 +77,7 @@ class PayloadRequestProcessorTest < ControllerTestSetup
     params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
 
-    parsed_payload = PayloadRequestProcessor.new(@processed_params, @parser)
+    parsed_payload = PayloadRequestProcessor.new(@processed_params)
     parsed_payload.create_payload
 
     assert_equal 1, Payload.all.count

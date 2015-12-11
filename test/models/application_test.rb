@@ -23,5 +23,10 @@ class ApplicationDetailsTest < ControllerTestSetup
     assert_equal '{#<UserAgent id: 1, user_agent: "Chrome 24.0.1309", os: "Mac OS X 10.8.2">=>60}', app.user_agents.to_s
   end
 
+  def test_screen_reso_breakdown_accross_all_requests
+    app = Application.find_by(identifier: 'google')
+    assert_equal '{#<ScreenResolution id: 1, width: 10000, height: 12000>=>20, #<ScreenResolution id: 2, width: 500, height: 800>=>20, #<ScreenResolution id: 3, width: 15000, height: 20000>=>10, #<ScreenResolution id: 4, width: 100, height: 200>=>10}', app.screen_resolutions.to_s
+  end
+
 
 end
