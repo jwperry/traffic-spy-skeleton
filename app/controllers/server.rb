@@ -14,7 +14,8 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      prp = PayloadRequestProcessor.new(params).process_request
+      parser = UserAgentParser::Parser.new
+      prp = PayloadRequestProcessor.new(params, parser).process_request
       status prp[:status]
       body   prp[:body]
     end

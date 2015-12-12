@@ -2,9 +2,9 @@ class PayloadRequestProcessor
 
   attr_accessor :raw_data
 
-  def initialize(params)
+  def initialize(params, parser)
     @raw_data = params
-    @parser = UserAgentParser::Parser.new
+    @parser = parser
   end
 
   def process_payload
@@ -36,17 +36,24 @@ class PayloadRequestProcessor
     Payload.all.any? {|pay| pay.requested_at == raw_data['payload']["requestedAt"]}
   end
 
-  def not_registered?
-    Application.all.none? {|app| app.identifier == raw_data["identifier"]}
+  def registered?
+    # Application.all.none? {|app| app.identifier == raw_data["identifier"]}
+    Payload.all.any? {|pay| pay.hex == create_hex}
+  end
+
+  def create_hex
+    Digest::SHA1.hexdigest raw_data['payload'].to_s
   end
 
   def create_payload
     payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
                              responded_in: raw_data['payload']["respondedIn"],
+                             hex: create_hex.to_i,
                              url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id,
                              user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id,
                              screen_resolution_id: ScreenResolution.find_or_create_by(height: raw_data['payload']["resolutionHeight"], width: raw_data['payload']["resolutionWidth"]).id)
     application = Application.find_by(identifier: raw_data['identifier'])
+
     application.payloads << payload
   end
 
@@ -56,7 +63,7 @@ class PayloadRequestProcessor
         {status: 400, body: "Missing Payload - 400 Bad Request"}
       elsif already_received?
         {status: 403, body: "Already Received Request - 403 Forbidden"}
-      elsif not_registered?
+      elsif registered?
         {status: 403, body: "Not Registered - 403 Forbidden"}
       else
         create_payload

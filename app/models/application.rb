@@ -17,4 +17,7 @@ class Application < ActiveRecord::Base
     payloads.group(:screen_resolution).count.sort_by{|a,b| (b * -1)}.to_h
   end
 
+  def average_response_times
+    payloads.group(:url).average(:responded_in).sort_by{|a,b| (b * -1)}.to_h
+  end
 end
