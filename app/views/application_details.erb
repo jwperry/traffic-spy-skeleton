@@ -4,7 +4,7 @@
 <h5><a href="http://localhost:9393/sources/#{@identifier}/events">Events:</a></h5><br>
 
 
-<% @application.sorted_urls.each do |object, count| %>
+<% @application.sorted_urls_by_request.each do |object, count| %>
 <h5>Unique Paths:<br><a href="<%=object.url%>"><%=object.url%></a><br>Hits: <%=count%></h5><br>
 <% end %>
 

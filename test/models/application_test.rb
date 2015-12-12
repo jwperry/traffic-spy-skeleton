@@ -10,7 +10,7 @@ class ApplicationDetailsTest < ControllerTestSetup
 
   # def test_app_returns_sorted_url_data
   #   app = Application.find_by(identifier: 'google')
-  #   assert_equal '{#<Url id: 2, url: "http://google.com/blog">=>30, #<Url id: 1, url: "http://google.com/images">=>20, #<Url id: 3, url: "http://google.com/store">=>10}', app.sorted_urls.to_s
+  #   assert_equal '{#<Url id: 2, url: "http://google.com/blog">=>30, #<Url id: 1, url: "http://google.com/images">=>20, #<Url id: 3, url: "http://google.com/store">=>10}', app.sorted_urls_by_request.to_s
   # end
   #
   # def test_app_returns_user_agent_data
