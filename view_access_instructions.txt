@@ -14,7 +14,7 @@ When an identifer exists return a page that displays the following:
   #user requests outputs as: [["Chrome 24.0.1309", "Mac OS X 10.8.2"]]
   #each nested hash contains user_agent at [0], and OS at [1]
 
-  @application.user_agents[0][0] for user agent
+  . for user agent
 
   (indexes need to be iterated through to display list)
 

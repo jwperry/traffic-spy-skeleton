@@ -1,15 +1,55 @@
-<h1>URL-Specific Data</h1>
+<div class="container app_details">
+  <div class="outer-panel">
+    <h1>URL Specific Data</h1>
 
-<h5>URL:<br><%= @url_path %> </h5><br>
+    <h2 class="target_title"><%= @url.url %></h2>
 
-<h5>Longest Response Time:<br><%= @url.sorted_url_response_times.first[:responded_in] %></h5><br>
+    <div class="row">
 
-<h5>Shortest Response Time:<br><%=@url.sorted_url_response_times[-1][:responded_in]     %></h5><br>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Longest Response Time: </span>
+          <% @application.sorted_urls_by_request.each do |object, count| %>
+            <%= @url.sorted_url_response_times.first[:responded_in] %>
+          <% end %>
+        </div>
+      </div>
 
-<h5>Average Response Time:<br><%= @url.average_url_response_time    %></h5><br>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Shortest Response Time: </span>
+          <%=@url.sorted_url_response_times[-1][:responded_in]%>
+        </div>
+      </div>
 
-<h5>HTTP Verbs Used:<br><%=  %></h5><br>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Average Response Time:</span>
+          <%= @url.average_url_response_time%>
+        </div>
+      </div>
 
-<h5>Three Most Popular Referrers:<br><%=  %></h5><br>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">HTTP Verbs Used:</span>
+            <%=  %>
+        </div>
+      </div>
 
-<h5>Three Most Popular User Agents:<br><%=     [0..2]%></h5><br>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Three Most Popular Referrers:</span>
+            <%=  %>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Three Most Popular User Agents:</span>
+            <%=  %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
