@@ -2,10 +2,9 @@
 
 <h2> <%= @identifier %> </h2>
 
-<% @application.sorted_urls.each do |object, count| %>
+<% @application.sorted_urls_by_request.each do |object, count| %>
 <h3><%=object.url%>:<%=count%></h3>
 <% end %>
-
 
 <% @application.user_agents.each do |object, count| %>
 <h3><%=object.user_agent%>:<%=count%></h3>

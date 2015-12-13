@@ -45,11 +45,17 @@ class PayloadRequestProcessor
     Digest::SHA1.hexdigest raw_data['payload'].to_s
   end
 
+  def relative_path
+    parse = raw_data['payload']['url'].split('/')
+    3.times {parse.shift}
+    (parse.count == 1) ? parse[0] : parse.join('/')
+  end
+
   def create_payload
     payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
                              responded_in: raw_data['payload']["respondedIn"],
                              hex: create_hex.to_i,
-                             url_id: Url.find_or_create_by(url: raw_data['payload']["url"]).id,
+                             url_id: Url.find_or_create_by(url: relative_path).id,
                              user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id,
                              screen_resolution_id: ScreenResolution.find_or_create_by(height: raw_data['payload']["resolutionHeight"], width: raw_data['payload']["resolutionWidth"]).id)
     application = Application.find_by(identifier: raw_data['identifier'])

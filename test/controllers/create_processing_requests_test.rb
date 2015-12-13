@@ -2,8 +2,8 @@ require_relative '../test_helper'
 
 class CreateProcessingRequestsTest < ControllerTestSetup
 
-  def test_a_post_request_has_a_valid_payload
-    payload_data = { "url":"http://jumpstartlab.com/blog",
+  def setup
+    @payload_data = { "url":"http://jumpstartlab.com/blog",
                 "requestedAt":"2013-02-16 21:38:28 -0700",
                 "respondedIn":37,
                 "referredBy":"http://jumpstartlab.com",
@@ -15,10 +15,13 @@ class CreateProcessingRequestsTest < ControllerTestSetup
                 "resolutionHeight":"1280",
                 "ip":"63.29.38.211"
               }.to_json
+  end
+
+  def test_a_post_request_has_a_valid_payload
 
     params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
-    post '/sources/jumpstartlab/data', {payload: payload_data}
+    post '/sources/jumpstartlab/data', {payload: @payload_data}
     assert_equal 200, last_response.status
     assert_equal 1, Payload.count
     assert_equal 1, Payload.first[:application_id]
@@ -36,14 +39,13 @@ class CreateProcessingRequestsTest < ControllerTestSetup
   end
 
   def test_returns_403_forbidden_if_already_received_payload_request
-    payload_data = { "requestedAt":"2013-02-16 21:38:28 -0700", "respondedIn":37}.to_json
     params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
 
     Application.create(params)
-    post '/sources/jumpstartlab/data', {payload: payload_data}
+    post '/sources/jumpstartlab/data', {payload: @payload_data}
 
     Application.create(params)
-    post '/sources/jumpstartlab/data', {payload: payload_data}
+    post '/sources/jumpstartlab/data', {payload: @payload_data}
 
     assert_equal 403, last_response.status
     assert_equal "Already Received Request - 403 Forbidden", last_response.body
