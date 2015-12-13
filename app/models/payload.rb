@@ -5,4 +5,5 @@ class Payload < ActiveRecord::Base
   belongs_to :screen_resolution
   belongs_to :verb
   belongs_to :referrer
+  belongs_to :event
 end

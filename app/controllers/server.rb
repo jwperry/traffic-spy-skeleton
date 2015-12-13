@@ -9,7 +9,6 @@ module TrafficSpy
     post '/sources' do
       rv = RequestValidator.new(params).validate_request
       status rv[:status]
-      # status rv.status
       body   rv[:body]
     end
 
@@ -23,13 +22,24 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       @application = Application.find_by(identifier: identifier)
       @identifier = identifier
-
       erb :application_details
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @application = Application.find_by(identifier: identifier)
-      @application.urls.find_by(url: path)
+      @url = @application.urls.find_by(url: path)
+      erb :url_data
+    end
+
+    get '/sources/IDENTIFIER/events' do |identifier|
+      @application = Application.find_by(identifier: identifier)
+      erb :event_index
+    end
+
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @application = Application.find_by(identifier: identifier)
+      @event = @application.events.find_by(event: event_name)
+      erb :event_data
     end
 
     not_found do
