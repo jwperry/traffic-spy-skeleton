@@ -10,4 +10,12 @@ class Url < ActiveRecord::Base
     payloads.average(:responded_in)
   end
 
+  def used_http_verbs
+    payloads.group(:verb).count.to_a
+  end
+
+  def top_three_rank(target)
+    payloads.group(target).count.sort_by{|a,b| (b * -1)}.to_h
+  end
+
 end
