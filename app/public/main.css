@@ -1,0 +1,65 @@
+body {
+  background-image: url('../images/highway.jpg');
+  background-size: cover;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  color:#717171;
+}
+
+
+main {
+  flex: 1 0 auto;
+}
+
+#main_page_heading {
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 30px #FF9800;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+h1, h2, p, a {
+  font-weight: 100;
+}
+
+a {
+  color: #6378B7;
+}
+
+h2.identifier_name {
+    color: #FF6A1E;
+    border: 1px dashed #DEACAC;
+    padding: 30px;
+    display: table;
+    margin: 0 auto;
+}
+
+.events_link {
+    display: table;
+    margin: 15px auto;
+}
+
+footer.page-footer {
+    margin-top: 20px;
+    background-color: rgba(255,152,0,0.5);
+    padding-top: 0;
+}
+
+.card-title {
+  padding-bottom: 9px;
+  border-bottom: 1px dotted #aaa;
+}
+
+.outer-panel {
+  background-color: rgba(0, 0, 0, 0.71);
+  padding: 40px 25px;
+}
+
+
+span.data {
+    color: #FF6A1E;
+}

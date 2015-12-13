@@ -1,25 +1,62 @@
-<h1>Application Details</h1>
+<div class="container app_details">
+  <div class="outer-panel">
+    <h1>Application Details</h1>
 
-<h5>Identifier:<br><%= @identifier %> </h5>
-<h5><a href="http://localhost:9393/sources/#{@identifier}/events">Events:</a></h5><br>
+    <h2 class="identifier_name"><%= @identifier %></h2>
+    <div class="events_link"> <a  href="http://localhost:9393/sources/#{@identifier}/events">View Events for This User</a></div>
 
-<% @application.sorted_urls_by_request.each do |object, count| %>
-<h5>Unique Paths:<br><a href="<%=object.url%>"><%=object.url%></a><br>Hits: <%=count%></h5><br>
+    <div class="row">
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Sorted URLs by Request</span>
+          <% @application.sorted_urls_by_request.each do |object, count| %>
+            <p>URL: <a href="<%=object.url%>"><%=object.url%></a></p>
+            <p>Hits: <span class="data"><%=count%></span></p>
+          <% end %>
+        </div>
+      </div>
 
-<% end %>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Browsers Used</span>
+              <% @application.user_agents.each do |object, count| %>
+              <p>Browsers: <span class="data"><%=object.user_agent%></span> </p>
+              <p>Times Used: <span class="data"><%=count%></span></p>
+              <% end %>
+        </div>
+      </div>
 
-<% @application.user_agents.each do |object, count| %>
-<h5>Browsers:<br><%=object.user_agent%><br>Times Used: <%=count%></h5><br>
-<% end %>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">User Agents</span>
+          <% @application.user_agents.each do |object, count| %>
+          <p>Operating Systems: <span class="data"><%=object.os%></span> </p>
+          <p>Times OS Used: <span class="data"><%=count%><span> </p>
+          <% end %>
+        </div>
+      </div>
 
-<% @application.user_agents.each do |object, count| %>
-<h5>Operating Systems:<br><%=object.os%><br>Times OS Used: <%=count%></h5><br>
-<% end %>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Average Response Times</span>
+          <% @application.average_response_times.each do |object, avg| %>
+          <p>Average Response Times: <span class="data"><%=object.url%></span> </p>
+          <p>Average Response Time: <span class="data"><%=avg%></span> </p>
+          <% end %>
+        </div>
+      </div>
 
-<% @application.screen_resolutions.each do |object, count| %>
-<h5>Screen Resolutions:<br><%=object.width%> by <%=object.height%><br>Times Resolution Used: <%=count%></h5><br>
-<% end %>
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Screen Resolutions</span>
+          <% @application.screen_resolutions.each do |object, count| %>
+          <p>Screen Resolutions: <span class="data"><%=object.width%></span> by <span class="data"><%=object.height%></span> </p>
+          <p>Times Resolution Used: <span class="data"><%=count%></span> </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-<% @application.average_response_times.each do |object, avg| %>
-<h5>Average Response Times:<br><%=object.url%><br>Average Response Time: <%=avg%></h5><br>
-<% end %>
+  </div>
+
+</div>
