@@ -1,19 +1,25 @@
 <h1>Application Details</h1>
 
-<h2> <%= @identifier %> </h2>
+<h5>Identifier:<br><%= @identifier %> </h5>
+<h5><a href="http://localhost:9393/sources/#{@identifier}/events">Events:</a></h5><br>
 
 <% @application.sorted_urls_by_request.each do |object, count| %>
-<h3><%=object.url%>:<%=count%></h3>
+<h5>Unique Paths:<br><a href="<%=object.url%>"><%=object.url%></a><br>Hits: <%=count%></h5><br>
+
 <% end %>
 
 <% @application.user_agents.each do |object, count| %>
-<h3><%=object.user_agent%>:<%=count%></h3>
+<h5>Browsers:<br><%=object.user_agent%><br>Times Used: <%=count%></h5><br>
 <% end %>
 
 <% @application.user_agents.each do |object, count| %>
-<h3><%=object.os%>:<%=count%></h3>
+<h5>Operating Systems:<br><%=object.os%><br>Times OS Used: <%=count%></h5><br>
 <% end %>
 
 <% @application.screen_resolutions.each do |object, count| %>
-<h3><%=object.width%> by <%=object.height%>:<%=count%></h3>
+<h5>Screen Resolutions:<br><%=object.width%> by <%=object.height%><br>Times Resolution Used: <%=count%></h5><br>
+<% end %>
+
+<% @application.average_response_times.each do |object, avg| %>
+<h5>Average Response Times:<br><%=object.url%><br>Average Response Time: <%=avg%></h5><br>
 <% end %>

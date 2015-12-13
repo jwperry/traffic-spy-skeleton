@@ -7,7 +7,7 @@ class ApplicationDetailsTest < ControllerTestSetup
     td = TestData.new(2)
     td.generate
   end
-
+  
   def test_app_returns_sorted_url_data
     app = Application.find_by(identifier: 'google')
     assert_equal "{#<Url id: 2, url: \"blog\">=>6, #<Url id: 1, url: \"images\">=>4, #<Url id: 3, url: \"store\">=>2}", app.sorted_urls_by_request.to_s
@@ -34,6 +34,5 @@ class ApplicationDetailsTest < ControllerTestSetup
     assert_equal "images", average_response_time[0][0][:url]
     assert_equal 5.0, average_response_time[0][1].to_f
   end
-
 
 end
