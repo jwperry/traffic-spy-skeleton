@@ -28,11 +28,11 @@ class RequestValidator
   end
 
   def missing_rootUrl?
-    raw_data.has_key?('identifier')
+    !(raw_data.has_key?('rootUrl'))
   end
 
   def missing_identifier?
-    raw_data.has_key?('rootUrl')
+    !(raw_data.has_key?('identifier'))
   end
 
 end

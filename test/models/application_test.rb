@@ -13,14 +13,14 @@ class ApplicationDetailsTest < ControllerTestSetup
     assert_equal "{#<Url id: 2, url: \"blog\">=>6, #<Url id: 1, url: \"images\">=>4, #<Url id: 3, url: \"store\">=>2}", app.sorted_urls_by_request.to_s
   end
 
-  def test_app_returns_user_agent_data
+  def test_app_returns_user_agent_breakdown_across_all_requests
     app = Application.find_by(identifier: 'google')
-    assert_equal "{#<UserAgent id: 1, user_agent: \"Chrome 24.0.1309\", os: \"Mac OS X 10.8.2\">=>12}", app.user_agents.to_s
+    assert_equal "Chrome 24.0.1309", app.user_agents.keys[0][:user_agent]
   end
 
   def test_os_breakdown_accross_all_requests
     app = Application.find_by(identifier: 'google')
-    assert_equal "{#<UserAgent id: 1, user_agent: \"Chrome 24.0.1309\", os: \"Mac OS X 10.8.2\">=>12}", app.user_agents.to_s
+    assert_equal "Mac OS X 10.8.2", app.user_agents.keys[0][:os]
   end
 
   def test_screen_reso_breakdown_accross_all_requests

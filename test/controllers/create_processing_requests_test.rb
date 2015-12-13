@@ -18,7 +18,6 @@ class CreateProcessingRequestsTest < ControllerTestSetup
   end
 
   def test_a_post_request_has_a_valid_payload
-
     params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
     Application.create(params)
     post '/sources/jumpstartlab/data', {payload: @payload_data}
@@ -38,7 +37,7 @@ class CreateProcessingRequestsTest < ControllerTestSetup
     assert_equal 0, Payload.count
   end
 
-  def test_returns_403_forbidden_if_already_received_payload_request
+  def test_returns_403_forbidden_if_duplicate_payload_request
     params = {identifier: "jumpstartlab", root_url: "http://jumpstartlab.com"}
 
     Application.create(params)

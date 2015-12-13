@@ -31,6 +31,13 @@ class CreateApplicationTest < ControllerTestSetup
     assert_equal 1, Application.count
   end
 
+  def test_can_access_identifier_specific_data_page
+    Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+    post '/sources/jumpstartlab/data', {payload: @payload_data}
+    get '/sources/jumpstartlab'
+    assert_equal 200, last_response.status
+  end
+
   def test_returns_400_when_request_is_missing_identifier
     post '/sources', 'rootUrl=http://jumpstartlab.com'
 
@@ -49,7 +56,6 @@ class CreateApplicationTest < ControllerTestSetup
 
   def test_returns_403_when_app_identifier_already_exists
     Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    # post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
     post '/sources', 'identifier=jumpstartlab&rootUrl=http://jumpstartlab.com'
 
     assert_equal 403, last_response.status
@@ -57,11 +63,11 @@ class CreateApplicationTest < ControllerTestSetup
     assert_equal "Identifier Already Exists - 403 Forbidden", last_response.body
   end
 
-  def test_can_find_url
+  def test_can_access_url_specific_data_page
     Application.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     post '/sources/jumpstartlab/data', {payload: @payload_data}
     get '/sources/jumpstartlab/urls/blog'
-    assert_equal "", url.longest_response_time
+    assert_equal 200, last_response.status
   end
 
 end
