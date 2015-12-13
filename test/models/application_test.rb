@@ -15,17 +15,17 @@ class ApplicationDetailsTest < ControllerTestSetup
 
   def test_app_returns_user_agent_breakdown_across_all_requests
     app = Application.find_by(identifier: 'google')
-    assert_equal "Chrome 24.0.1309", app.user_agents[0][:user_agent]
+    assert_equal "Chrome 24.0.1309", app.uniq_user_agents[0][0]
   end
 
   def test_os_breakdown_accross_all_requests
     app = Application.find_by(identifier: 'google')
-    assert_equal "Mac OS X 10.8.2", app.user_agents[0][:os]
+    assert_equal "Mac OS X 10.8.2", app.uniq_user_agents[0][1]
   end
 
   def test_screen_reso_breakdown_accross_all_requests
     app = Application.find_by(identifier: 'google')
-    assert_equal 2, app.screen_resolutions.count
+    assert_equal 2, app.uniq_screen_resolutions.count
     # assert_equal "{#<ScreenResolution id: 1, width: 10000, height: 12000>=>4, #<ScreenResolution id: 2, width: 500, height: 800>=>4, #<ScreenResolution id: 3, width: 15000, height: 20000>=>2, #<ScreenResolution id: 4, width: 100, height: 200>=>2}", app.screen_resolutions.to_s
   end
 

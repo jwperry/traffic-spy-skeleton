@@ -12,21 +12,20 @@ class Application < ActiveRecord::Base
     payloads.group(:url).count.sort_by{|a,b| (b * -1)}.to_h
   end
 
-  def user_agents
-    payloads.group(:user_agent).count.sort_by{|a,b| (b * -1)}.to_h.map{|a, b| {:user_agent => a[:user_agent], :os => a[:os]}}
+  def uniq_user_agents
+    user_agents.all.uniq.pluck(:user_agent, :os)
   end
 
-  def screen_resolutions
-    payloads.group(:screen_resolution).count.sort_by{|a,b| (b * -1)}.to_h.map{|a, b| {:screen_resolution => [a[:width],a[:height]]}}
+  def uniq_screen_resolutions
+    screen_resolutions.all.uniq.pluck(:width, :height)
   end
 
   def average_response_times
-    payloads.group(:url).average(:responded_in).sort_by{|a,b| (b * -1)}.to_h.map{|a, b| [a[:url], b]}
+    payloads.group(:url).average(:responded_in).sort_by{|a,b| (b * -1)}.to_a
   end
 
   def sorted_events
     payloads.group(:event).count.sort_by{|a,b| (b * -1)}.to_h
   end
-
 
 end
