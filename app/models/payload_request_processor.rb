@@ -55,6 +55,8 @@ class PayloadRequestProcessor
     payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
                              responded_in: raw_data['payload']["respondedIn"],
                              hex: create_hex.to_i,
+                             referrer_id: Referrer.find_or_create_by(referrer: raw_data['payload']['referredBy']).id,
+                             verb_id: Verb.find_or_create_by(verb: raw_data['payload']['requestType']).id,
                              url_id: Url.find_or_create_by(url: relative_path).id,
                              user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id,
                              screen_resolution_id: ScreenResolution.find_or_create_by(height: raw_data['payload']["resolutionHeight"], width: raw_data['payload']["resolutionWidth"]).id)

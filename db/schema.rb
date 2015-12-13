@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212204642) do
+ActiveRecord::Schema.define(version: 20151213010202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(version: 20151212204642) do
     t.integer "user_agent_id"
     t.integer "screen_resolution_id"
     t.string  "hex"
+    t.integer "verb_id"
+    t.integer "referrer_id"
+  end
+
+  create_table "referrers", force: :cascade do |t|
+    t.string "referrer"
   end
 
   create_table "screen_resolutions", force: :cascade do |t|
@@ -47,6 +53,10 @@ ActiveRecord::Schema.define(version: 20151212204642) do
   create_table "user_agents", force: :cascade do |t|
     t.string "user_agent"
     t.string "os"
+  end
+
+  create_table "verbs", force: :cascade do |t|
+    t.string "verb"
   end
 
 end

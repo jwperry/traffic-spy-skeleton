@@ -4,6 +4,8 @@ class Application < ActiveRecord::Base
   has_many :urls, through: :payloads
   has_many :user_agents, through: :payloads
   has_many :screen_resolutions, through: :payloads
+  has_many :verbs, through: :payloads
+  has_many :referrers, through: :payloads
 
   def sorted_urls_by_request
     payloads.group(:url).count.sort_by{|a,b| (b * -1)}.to_h
