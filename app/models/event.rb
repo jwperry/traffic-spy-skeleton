@@ -6,9 +6,7 @@ class Event < ActiveRecord::Base
 
   def event_by_hour
     times = {}
-    24.times do |i|
-      times[i] = find_payloads_for_hour(i).count
-    end
+    24.times {|i| times[i] = find_payloads_for_hour(i).count}
     times
   end
 
