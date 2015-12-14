@@ -2,14 +2,21 @@
   <div class="outer-panel">
     <h1>Application Event Details</h1>
 
-    <h2 class="target_title"><%= EVENT %></h2>
+    <h2 class="target_title"><%= @event_name %></h2>
 
     <div class="row">
 
       <div class="col s6">
         <div class="card-panel white">
-          <span class="card-title">Events by Hour</span>
-          <%=  %>
+          <span class="card-title">Events by Hour: </span>
+          <%= @event.event_by_hour  %>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div class="card-panel white">
+          <span class="card-title">Total Event Count: </span>
+          <%= @event.total_event_count %>
         </div>
       </div>
 
