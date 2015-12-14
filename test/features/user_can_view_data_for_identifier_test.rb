@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UserCanRegisterWithValidRequestTest < FeatureTest
+class UserCanViewDataForIdentifierTest < FeatureTest
 
   def setup
     post '/sources', "identifier=ultratest&rootUrl=http://ultratest.com"
@@ -20,7 +20,7 @@ class UserCanRegisterWithValidRequestTest < FeatureTest
                     post "/sources/ultratest/data", {payload: payload_data}
   end
 
-  def test_user_can_register_with_valid_request
+  def test_user_can_view_data_for_identifier_happy_path
       visit "/"
       assert_equal "/", current_path
       within("#main_page_heading") do
@@ -39,5 +39,21 @@ class UserCanRegisterWithValidRequestTest < FeatureTest
         assert page.has_content?("Screen Resolutions: 1920 by 1080")
       end
   end
+
+  def test_user_can_view_data_for_identifier_sad_path
+      visit "/"
+      assert_equal "/", current_path
+      within("#main_page_heading") do
+        assert page.has_content?("Traffic Spy")
+      end
+
+      visit "/sources/ultatest"
+      assert_equal "/sources/ulratest", current_path
+      within("#app_details_main") do
+        
+      end
+  end
+
+
 
 end
