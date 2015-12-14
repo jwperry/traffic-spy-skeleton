@@ -1,0 +1,14 @@
+<h1 id="main_page_heading">Register</h1>
+
+<form class="col s12" action="/sources" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Identifier" id="identifier_field" type="text" class="validate" name="identifier">
+          <label for="identifier_field">Identifier</label>
+          <input placeholder="Website Root URL" id="rootUrl_field" type="text" class="validate" name=<%="rootUrl".to_sym%>>
+          <label for="rootUrl_field">Website Root URL</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+</form>
