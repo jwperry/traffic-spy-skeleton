@@ -33,22 +33,26 @@
         <div class="card-panel white">
           <span class="card-title">HTTP Verbs Used:</span>
           <% @url.used_http_verbs.each do |verb| %>
-                <%= verb %>
+              <p>  <%= verb %> </p>
           <% end %>
         </div>
       </div>
 
       <div class="col s6">
         <div class="card-panel white">
-          <span class="card-title">Three Most Popular Referrers:</span>
-            <%=  %>
+          <span class="card-title">Three Most Popular Referrers
+            <% @url.top_three_rank(:referrer).each do |ref| %>
+                  <p>Referrer:<%= ref[0]%> Count: <%= ref[1] %> </p>
+          <% end %>
         </div>
       </div>
 
       <div class="col s6">
         <div class="card-panel white">
           <span class="card-title">Three Most Popular User Agents:</span>
-            <%=  %>
+          <% @url.top_three_rank(:user_agent).each do |agent| %>
+                <p>User Agent:<%= agent[0]%> Count: <%= agent[1] %> </p>
+        <% end %>
         </div>
       </div>
 

@@ -16,7 +16,8 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_rank(target)
-    payloads.group(target).count.sort_by{|a,b| (b * -1)}.to_h
+    top = payloads.group(target).count.sort_by{|a,b| (b * -1)}.to_a
+    top[0..2].map { |ref| [ref[0][target], ref[1]] }
   end
 
 end
