@@ -11,6 +11,7 @@ module TrafficSpy
       rv.validate_request
       status rv.status
       body   rv.body
+      redirect "/"
     end
 
     post '/redirect_to_application_details' do
