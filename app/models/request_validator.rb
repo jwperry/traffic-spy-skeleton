@@ -23,7 +23,7 @@ class RequestValidator
   end
 
   def application_save?
-    application  = Application.new(identifier: raw_data[:identifier], root_url: raw_data['rootUrl'])
+    application = Application.new(identifier: raw_data[:identifier], root_url: raw_data['rootUrl'])
     application.save
   end
 

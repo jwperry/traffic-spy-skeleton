@@ -11,6 +11,7 @@ class PayloadRequestProcessor
     if valid_json?
       parse_payload
       parse_user_agent
+      create_hex
     end
     raw_data
   end
@@ -38,31 +39,16 @@ class PayloadRequestProcessor
 
   def registered?
     # Application.all.none? {|app| app.identifier == raw_data["identifier"]}
-    Payload.all.any? {|pay| pay.hex == create_hex}
+    Payload.all.any? {|pay| pay.hex == raw_data['payload']['hex']}
   end
 
   def create_hex
-    Digest::SHA1.hexdigest raw_data['payload'].to_s
-  end
-
-  def relative_path
-    parse = raw_data['payload']['url'].split('/')
-    3.times {parse.shift}
-    (parse.count == 1) ? parse[0] : parse.join('/')
+    raw_data["payload"]["hex"] = Digest::SHA1.hexdigest raw_data['payload'].to_s
   end
 
   def create_payload
-    payload = Payload.find_or_create_by(requested_at: raw_data['payload']["requestedAt"],
-                             responded_in: raw_data['payload']["respondedIn"],
-                             hex: create_hex.to_i,
-                             referrer_id: Referrer.find_or_create_by(referrer: raw_data['payload']['referredBy']).id,
-                             verb_id: Verb.find_or_create_by(verb: raw_data['payload']['requestType']).id,
-                             url_id: Url.find_or_create_by(url: relative_path).id,
-                             event_id: Event.find_or_create_by(event: raw_data['payload']['eventName']).id,
-                             user_agent_id: UserAgent.find_or_create_by(user_agent: raw_data['payload']['userAgent']['user_agent'], os: raw_data['payload']['userAgent']['os']).id,
-                             screen_resolution_id: ScreenResolution.find_or_create_by(height: raw_data['payload']["resolutionHeight"], width: raw_data['payload']["resolutionWidth"]).id)
+    payload = CreatePayload.new(raw_data).create_payload
     application = Application.find_by(identifier: raw_data['identifier'])
-
     application.payloads << payload
   end
 

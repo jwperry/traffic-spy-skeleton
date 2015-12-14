@@ -27,7 +27,7 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @application = Application.find_by(identifier: identifier)
-      @url = @application.urls.find_by(url: "http://#{identifier}.com/#{path}")
+      @url = @application.urls.find_by(url: path)
       erb :url_data
     end
 

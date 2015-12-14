@@ -39,7 +39,7 @@ class PayloadRequestProcessorTest < ControllerTestSetup
     parsed_payload = PayloadRequestProcessor.new({"payload" => @params}, @parser)
     parsed_payload.process_payload
 
-    assert_equal({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}, parsed_payload.raw_data)
+    assert_equal({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211", "hex"=>"8d1b479f813f81380f5fb1d160d35c83068096f7"}}, parsed_payload.raw_data)
   end
 
   def test_valid_json
@@ -49,7 +49,7 @@ class PayloadRequestProcessorTest < ControllerTestSetup
 
   def test_parse_payload
     parsed_payload = PayloadRequestProcessor.new({"payload" => @params}, @parser)
-    assert_equal ({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211"}}), parsed_payload.process_payload
+    assert_equal ({"payload"=>{"url"=>"http://jumpstartlab.com/blog", "requestedAt"=>"2013-02-16 21:38:28 -0700", "respondedIn"=>37, "referredBy"=>"http://jumpstartlab.com", "requestType"=>"GET", "parameters"=>[], "eventName"=>"socialLogin", "userAgent"=>{"user_agent"=>"Chrome 24.0.1309", "os"=>"Mac OS X 10.8.2"}, "resolutionWidth"=>"1920", "resolutionHeight"=>"1280", "ip"=>"63.29.38.211", "hex"=>"8d1b479f813f81380f5fb1d160d35c83068096f7"}}), parsed_payload.process_payload
   end
 
   def test_if_nil_json_parse_returns_input
