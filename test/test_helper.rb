@@ -34,6 +34,6 @@ class ControllerTestSetup < Minitest::Test
 
 end
 
-class FeatureTest < Minitest::Test
+class FeatureTest < ControllerTestSetup
   include Capybara::DSL
 end
