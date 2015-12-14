@@ -25,7 +25,6 @@ module TrafficSpy
       @application = Application.find_by(identifier: identifier)
       @identifier = identifier
       erb :application_details
-
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
@@ -42,7 +41,7 @@ module TrafficSpy
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @application = Application.find_by(identifier: identifier)
       @event = @application.events.find_by(event: event_name)
-      erb :event_data
+      erb ViewRoute.event_route(@application, @event)
     end
 
     not_found do

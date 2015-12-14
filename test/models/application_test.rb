@@ -16,23 +16,25 @@ class ApplicationDetailsTest < ControllerTestSetup
   def test_app_returns_user_agent_breakdown_across_all_requests
     app = Application.find_by(identifier: 'google')
     assert_equal "Chrome 24.0.1309", app.uniq_user_agents[0][0]
+    assert_equal 1, app.uniq_user_agents.count
   end
 
   def test_os_breakdown_accross_all_requests
     app = Application.find_by(identifier: 'google')
     assert_equal "Mac OS X 10.8.2", app.uniq_user_agents[0][1]
+    assert_equal 1, app.uniq_user_agents.count
   end
 
   def test_screen_reso_breakdown_accross_all_requests
     app = Application.find_by(identifier: 'google')
     assert_equal 2, app.uniq_screen_resolutions.count
-    # assert_equal "{#<ScreenResolution id: 1, width: 10000, height: 12000>=>4, #<ScreenResolution id: 2, width: 500, height: 800>=>4, #<ScreenResolution id: 3, width: 15000, height: 20000>=>2, #<ScreenResolution id: 4, width: 100, height: 200>=>2}", app.screen_resolutions.to_s
+    assert_equal "[[500, 20000], [123, 12000]]", app.uniq_screen_resolutions.to_s
   end
 
   def test_average_response_time
     app = Application.find_by(identifier: 'google')
     average_response_time = app.average_response_times
-    assert_equal 'images', average_response_time[0][0]
+    assert_equal 'images', average_response_time[0][0][:url]
     assert_equal 5.0, average_response_time[1][1]
   end
 
