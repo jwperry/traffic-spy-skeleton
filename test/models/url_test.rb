@@ -56,7 +56,7 @@ class ApplicationDetailsTest < ControllerTestSetup
     url = app.urls.find_by(url: 'blog')
     top_three_user_agents = url.top_three_rank(:user_agent).to_a
     assert_equal 1, top_three_user_agents.count
-    assert_equal '[[#<UserAgent id: 1, user_agent: "Chrome 24.0.1309", os: "Mac OS X 10.8.2">, 18]]', top_three_user_agents.to_s
+    assert_equal "[[\"Chrome 24.0.1309\", 18]]", top_three_user_agents.to_s
   end
 
 end
