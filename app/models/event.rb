@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
   has_many :payloads
 
   def event_by_hour
-    binding.pry
     times = {}
     24.times {|i| times[i] = find_payloads_for_hour(i).count}
     times
