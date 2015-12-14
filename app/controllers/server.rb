@@ -26,7 +26,6 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      binding.pry
       @application = Application.find_by(identifier: identifier)
       @url = @application.urls.find_by(url: path)
       erb :url_data
