@@ -33,6 +33,8 @@ class ViewRoute
   def self.application(application)
     if application.nil?
       :application_error
+    elsif application.payloads.all.empty?
+      :payload_error
     else
       :application_details
     end
