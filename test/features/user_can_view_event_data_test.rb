@@ -20,7 +20,7 @@ class UserCanViewEventDataTest < FeatureTest
                     post "/sources/ultratest/data", {payload: payload_data}
   end
 
-  def test_user_can_view_event_data_test
+  def test_user_can_view_event_data_test_happy_path
       visit "/"
       assert_equal "/", current_path
       within("#main_page_heading") do
@@ -35,6 +35,17 @@ class UserCanViewEventDataTest < FeatureTest
       within("#event_count") do
         assert page.has_content?(1)
       end
+  end
+
+  def test_user_can_view_event_data_test_sad_path
+      visit "/sources/ultratest/events/not_real"
+      within("#event_error") do
+        assert page.has_content?("Application Event Details Error")
+        assert page.has_content?('There is no "not_real" event.')
+      end
+
+      click_link("Back to Event Index for ultratest")
+      assert "/sources/ultratest/events", current_path
   end
 
 end

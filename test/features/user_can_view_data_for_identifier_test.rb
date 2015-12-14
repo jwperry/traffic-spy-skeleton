@@ -20,7 +20,7 @@ class UserCanViewDataForIdentifierTest < FeatureTest
                     post "/sources/ultratest/data", {payload: payload_data}
   end
 
-  def test_user_can_register_with_valid_request
+  def test_user_can_view_data_for_identifier_test_happy_path
       visit "/"
       assert_equal "/", current_path
       within("#main_page_heading") do
