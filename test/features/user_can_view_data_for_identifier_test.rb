@@ -31,7 +31,7 @@ class UserCanRegisterWithValidRequestTest < FeatureTest
       assert_equal "/sources/ultratest", current_path
       within("#app_details_main") do
         assert page.has_content?("ultratest")
-        assert page.has_content?("tester:")
+        assert page.has_content?("tester : 1")
         assert page.has_content?("Mac OS X 10.8.2")
         assert page.has_content?("Chrome 24.0.1309")
         assert page.has_content?("Longest Average Response Time: 100.0")

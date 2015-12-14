@@ -29,9 +29,10 @@ class UserCanRegisterWithValidRequestTest < FeatureTest
 
       visit "/sources/ultratest"
       assert_equal "/sources/ultratest", current_path
+      save_and_open_page
       within("#app_details_main") do
         assert page.has_content?("ultratest")
-        assert page.has_content?("tester:")
+        assert page.has_content?("tester : 1")
       end
   end
 
