@@ -21,19 +21,14 @@ class UserCanRegisterWithValidRequestTest < FeatureTest
   end
 
   def test_user_can_register_with_valid_request
-      visit "/"
-      assert_equal "/", current_path
-      within("#main_page_heading") do
-        assert page.has_content?("Traffic Spy")
-      end
+      visit "/register"
+      assert_equal "/register", current_path
 
-      visit "/sources/ultratest"
-      assert_equal "/sources/ultratest", current_path
-      save_and_open_page
-      within("#app_details_main") do
-        assert page.has_content?("ultratest")
-        assert page.has_content?("tester : 1")
-      end
+      fill_in('identifier', :with => 'ultratest')
+      fill_in('rootUrl', :with => 'http://ultratest.com')
+      click_button('Submit')
+
+      assert_equal "/", current_path
   end
 
 end
