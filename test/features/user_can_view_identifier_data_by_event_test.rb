@@ -36,8 +36,7 @@ class UserCanViewIdentifierDataByEventTest < FeatureTest
 
   def test_user_can_register_with_valid_request_sad_path
     visit '/sources/not_real/events'
-    
-    within("#identifier_error") do
+    within("#app_error") do
       assert page.has_content?("Identifier Error")
       assert page.has_content?('There is no identifier called "not_real" for this request.')
     end

@@ -29,7 +29,7 @@ class UserCanViewDataForPathTest < FeatureTest
 
       visit "/sources/ultratest/urls/tester"
       assert_equal "/sources/ultratest/urls/tester", current_path
-      within("#path_error") do
+      within("#path") do
         assert page.has_content?("POST")
       end
       within("#path") do
@@ -46,9 +46,8 @@ class UserCanViewDataForPathTest < FeatureTest
 
       visit "/sources/ultratest/urls/tster"
       assert_equal "/sources/ultratest/urls/tster", current_path
-      save_and_open_page
       within("#path_error") do
-        assert page.has_content?("The URL 'tster' has not been requested.")
+        assert page.has_content?('The URL "tster" has not been requested.')
       end
   end
 
