@@ -3,7 +3,7 @@
     <h1>Application Details</h1>
 
     <h2 class="target_title"><%= @identifier %></h2>
-    <div class="events_link"> <a  href="http://localhost:9393/sources/#{@identifier}/events">View Events for This User</a></div>
+    <div class="events_link"> <a  href="http://localhost:9393/sources/#{identifier}/events">View Events for This User</a></div>
 
     <div class="row">
 
@@ -11,7 +11,7 @@
         <div class="card-panel white">
         <span class="card-title">Sorted URLs by Request</span>
             <% @application.sorted_urls_by_request.each do |key, value|%>
-            <p><span class="data"><%=key[:url]%>:<%=value%></span></p>
+            <p><span class="data"><a href="http://localhost:9393/sources/#{identifier}/#{path}"><%=key[:url]%></a> : <%=value%></span></p>
           <% end %>
         </div>
       </div>
@@ -56,10 +56,6 @@
         </div>
       </div>
 
-<<<<<<< HEAD
-</div>
-=======
-    </div> <!--row-->
+    </div><!--row-->
   </div><!--outer-panel-->
 </div><!--container-->
->>>>>>> views-pages-setup

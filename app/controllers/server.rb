@@ -29,10 +29,11 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @application = Application.find_by(identifier: identifier)
       @url = @application.urls.find_by(url: path)
+      binding.pry
       erb :url_data
     end
 
-    get '/sources/IDENTIFIER/events' do |identifier|
+    get '/sources/:identifier/events' do |identifier|
       @application = Application.find_by(identifier: identifier)
       erb :event_index
     end
