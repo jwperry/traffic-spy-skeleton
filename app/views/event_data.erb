@@ -9,7 +9,9 @@
       <div class="col s6">
         <div class="card-panel white">
           <span class="card-title">Events by Hour: </span>
-          <%= @event.event_by_hour  %>
+          <% @event.event_by_hour.each do |k, v|  %>
+          <p>Hour: <%= k %>, Count: <%= v %>
+          <% end %>
         </div>
       </div>
 

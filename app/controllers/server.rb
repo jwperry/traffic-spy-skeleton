@@ -37,7 +37,6 @@ module TrafficSpy
     get '/sources/:identifier/events' do |identifier|
       @application = Application.find_by(identifier: identifier)
       @identifier = identifier
-      binding.pry
       erb :event_index
     end
 
