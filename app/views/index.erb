@@ -1,11 +1,10 @@
 <%= erb :"_home_navbar" %>
 <h1 id="main_page_heading">Traffic Spy</h1>
 
-<form class="col s12" action="/redirect_to_application_details" method="post">
+<form class="col s12" id="login_form" action="/redirect_to_application_details" method="post">
       <div class="row">
         <div class="input-field col s12">
           <input placeholder="Where would you like to go?" id="identifier_field" type="text" class="validate" name="identifier">
-          <label for="identifier_field">Identifier</label>
         </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
           <i class="material-icons right">send</i>

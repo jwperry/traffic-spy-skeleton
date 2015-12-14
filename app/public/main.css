@@ -59,7 +59,29 @@ footer.page-footer {
   padding: 40px 25px;
 }
 
-
 span.data {
     color: #FF6A1E;
+}
+
+input#identifier_field {
+    width: 700px;
+    font-weight: 100;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    color: #190707;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+button.btn.waves-effect.waves-light {
+    width: 200px;
+    height: 70px;
+    background-color: red;
+  }
+
+#login_form {
+  width: 700px;
+  margin: 0 auto;
+  text-align: center;
 }
