@@ -3,7 +3,7 @@
   <div class="outer-panel">
     <h1>Application Event Details</h1>
 
-    <h2 class="target_title"><%= @event_name %></h2>
+    <h2 id="event_name" class="target_title"><%= @event_name %></h2>
 
     <div class="row">
 
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div class="col s6">
+      <div id="event_count" class="col s6">
         <div class="card-panel white">
           <span class="card-title">Total Event Count: </span>
           <span class="data"><%= @event.total_event_count %></span>
