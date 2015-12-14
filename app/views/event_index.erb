@@ -11,7 +11,7 @@
         <div class="card-panel white">
           <span class="card-title">Index of Received Events:</span>
           <%@application.sorted_events.each do |event|%>
-          <p><a href="/sources/<%=@identifier %>/events/<%=event[0]%>"><%= event[0] %></a> Count: <%= event[1] %></p>
+          <p><a href="/sources/<%=@identifier %>/events/<%=event[0]%>"><%= event[0] %></a> Count: <span class="data"><%= event[1] %></span></p>
           <%end%>
         </div>
       </div>
