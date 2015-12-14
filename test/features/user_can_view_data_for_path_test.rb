@@ -29,11 +29,26 @@ class UserCanViewDataForPathTest < FeatureTest
 
       visit "/sources/ultratest/urls/tester"
       assert_equal "/sources/ultratest/urls/tester", current_path
-      within("#path_verb_data") do
+      within("#path_error") do
         assert page.has_content?("POST")
       end
       within("#path") do
         assert page.has_content?("tester")
+      end
+  end
+
+  def test_user_can_view_data_for_path_sad_path
+      visit "/"
+      assert_equal "/", current_path
+      within("#main_page_heading") do
+        assert page.has_content?("Traffic Spy")
+      end
+
+      visit "/sources/ultratest/urls/tster"
+      assert_equal "/sources/ultratest/urls/tster", current_path
+      save_and_open_page
+      within("#path_error") do
+        assert page.has_content?("The URL 'tster' has not been requested.")
       end
   end
 
