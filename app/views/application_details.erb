@@ -6,13 +6,12 @@
     <div class="events_link"> <a  href="http://localhost:9393/sources/#{@identifier}/events">View Events for This User</a></div>
 
     <div class="row">
+
       <div class="col s6">
         <div class="card-panel white">
         <span class="card-title">Sorted URLs by Request</span>
-          <p>
             <% @application.sorted_urls_by_request.each do |key, value|%>
-              <span class="data"><%=key[:url]%>:<%=value%></span>
-          </p>
+            <p><span class="data"><%=key[:url]%>:<%=value%></span></p>
           <% end %>
         </div>
       </div>
@@ -56,7 +55,7 @@
           <% end %>
         </div>
       </div>
-    </div>
-  </div>
 
-</div>
+    </div> <!--row-->
+  </div><!--outer-panel-->
+</div><!--container-->

@@ -32,7 +32,9 @@
       <div class="col s6">
         <div class="card-panel white">
           <span class="card-title">HTTP Verbs Used:</span>
-            <%=  %>
+          <% @url.used_http_verbs.each do |verb| %>
+                <%= verb %>
+          <% end %>
         </div>
       </div>
 

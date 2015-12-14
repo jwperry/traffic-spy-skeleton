@@ -23,11 +23,13 @@ module TrafficSpy
       @application = Application.find_by(identifier: identifier)
       @identifier = identifier
       erb :application_details
+
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @application = Application.find_by(identifier: identifier)
       @url = @application.urls.find_by(url: "http://#{identifier}.com/#{path}")
+      binding.pry
       erb :url_data
     end
 
