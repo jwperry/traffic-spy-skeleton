@@ -13,7 +13,6 @@ class RequestValidatorTest < ControllerTestSetup
   def test_application_does_save
     params = {identifier: "jumpstartlab", 'rootUrl' => "http://jumpstartlab.com"}
     rv = RequestValidator.new(params)
-
     assert rv.application_save?
   end
 

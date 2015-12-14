@@ -11,7 +11,6 @@ module TrafficSpy
       rv.validate_request
       status rv.status
       body   rv.body
-      redirect "/"
     end
 
     post '/redirect_to_application_details' do
@@ -21,6 +20,12 @@ module TrafficSpy
 
     get '/register' do
       erb :register
+    end
+
+    post '/register' do
+      rv = RequestValidator.new(params)
+      rv.validate_request
+      redirect '/'
     end
 
     post '/sources/:identifier/data' do
@@ -41,6 +46,7 @@ module TrafficSpy
       @application = Application.find_by(identifier: identifier)
       @url = @application.urls.find_by(url: path)
       @identifier = identifier
+      @url_path = path
       erb ViewRoute.url_route(@application, @url)
     end
 

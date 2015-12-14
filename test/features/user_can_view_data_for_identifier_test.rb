@@ -48,9 +48,9 @@ class UserCanViewDataForIdentifierTest < FeatureTest
       end
 
       visit "/sources/ultatest"
-      assert_equal "/sources/ulratest", current_path
-      within("#app_details_main") do
-        
+      assert_equal "/sources/ultatest", current_path
+      within("#app_error") do
+        assert page.has_content?("There is no identifier called 'ultatest' for this request.")
       end
   end
 
