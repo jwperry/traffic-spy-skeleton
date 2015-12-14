@@ -1,6 +1,7 @@
 class PayloadRequestProcessor
 
   attr_accessor :raw_data
+  attr_reader :body, :status
 
   def initialize(params, parser)
     @raw_data = params
@@ -55,14 +56,14 @@ class PayloadRequestProcessor
   def process_request
     process_payload
       if missing_payload?
-        {status: 400, body: "Missing Payload - 400 Bad Request"}
+        @status, @body = 400, "Missing Payload - 400 Bad Request"
       elsif already_received?
-        {status: 403, body: "Already Received Request - 403 Forbidden"}
+        @status, @body = 403, "Already Received Request - 403 Forbidden"
       elsif registered?
-        {status: 403, body: "Not Registered - 403 Forbidden"}
+        @status, @body = 404, "Not Registered - 403 Forbidden"
       else
         create_payload
-        {status: 200, body: "200 OK"}
+        @status, @body = 200,"200 OK"
       end
   end
 end

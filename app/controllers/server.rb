@@ -7,16 +7,18 @@ module TrafficSpy
     end
 
     post '/sources' do
-      rv = RequestValidator.new(params).validate_request
-      status rv[:status]
-      body   rv[:body]
+      rv = RequestValidator.new(params)
+      rv.validate_request
+      status rv.status
+      body   rv.body
     end
 
     post '/sources/:identifier/data' do
       parser = UserAgentParser::Parser.new
-      prp = PayloadRequestProcessor.new(params, parser).process_request
-      status prp[:status]
-      body   prp[:body]
+      prp = PayloadRequestProcessor.new(params, parser)
+      prp.process_request
+      status prp.status
+      body   prp.body
     end
 
     get '/sources/:identifier' do |identifier|
@@ -29,7 +31,6 @@ module TrafficSpy
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @application = Application.find_by(identifier: identifier)
       @url = @application.urls.find_by(url: path)
-      binding.pry
       erb :url_data
     end
 
