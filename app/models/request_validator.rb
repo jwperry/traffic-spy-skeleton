@@ -20,11 +20,11 @@ class RequestValidator
   end
 
   def application_exists?
-    Application.all.any? {|app| app.identifier == raw_data[:identifier]}
+    Application.all.any? {|app| app.identifier == raw_data[('identifier')]}
   end
 
   def application_save?
-    application = Application.new(identifier: raw_data[:identifier], root_url: raw_data['rootUrl'])
+    application = Application.new(identifier: raw_data['identifier'], root_url: raw_data['rootUrl'])
     application.save
   end
 
