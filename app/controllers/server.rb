@@ -15,8 +15,6 @@ module TrafficSpy
 
     post '/redirect_to_application_details' do
       @application = Application.find_by(identifier: params["identifier"])
-      #need method call to redirect class here once jordan is done
-      #route to application_details for identifier or error page
       redirect "/sources/#{params["identifier"]}"
     end
 
