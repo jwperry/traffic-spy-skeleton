@@ -25,7 +25,9 @@ class Application < ActiveRecord::Base
   end
 
   def sorted_events
-    payloads.group(:event).count.sort_by{|a,b| (b * -1)}.to_h
+    events = payloads.group(:event).count.sort_by{|a,b| (b * -1)}.to_a
+    events.map {|event| [event[0][:event], event[1]] }
   end
+
 
 end
