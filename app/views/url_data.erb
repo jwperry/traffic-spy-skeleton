@@ -11,7 +11,7 @@
         <div class="card-panel white">
           <span class="card-title">Longest Response Time: </span>
           <% @application.sorted_urls_by_request.each do |object, count| %>
-            <%= @url.sorted_url_response_times.first[:responded_in] %>
+            <p><span class="data"><%= @url.sorted_url_response_times.first[:responded_in] %></span> ms</p>
           <% end %>
         </div>
       </div>
@@ -19,14 +19,14 @@
       <div class="col s6">
         <div class="card-panel white">
           <span class="card-title">Shortest Response Time: </span>
-          <%=@url.sorted_url_response_times[-1][:responded_in]%>
+          <p><span class="data"><%=@url.sorted_url_response_times[-1][:responded_in]%></span> ms</p>
         </div>
       </div>
 
       <div class="col s6">
         <div class="card-panel white">
           <span class="card-title">Average Response Time:</span>
-          <%= @url.average_url_response_time%>
+          <p><span class="data"><%= @url.average_url_response_time%></span> ms</p>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <div class="card-panel white">
           <span class="card-title">HTTP Verbs Used:</span>
           <% @url.used_http_verbs.each do |verb| %>
-              <p>  <%= verb %> </p>
+              <p>  <span class="data"><%= verb %></span> </p>
           <% end %>
         </div>
       </div>
@@ -43,7 +43,7 @@
         <div class="card-panel white">
           <span class="card-title">Three Most Popular Referrers
             <% @url.top_three_rank(:referrer).each do |ref| %>
-                  <p>Referrer:<%= ref[0]%> Count: <%= ref[1] %> </p>
+                  <p><span class="data"><%= ref[0]%></span> &nbsp &nbsp Count: <span class="data"><%= ref[1] %></span> </p>
           <% end %>
         </div>
       </div>
@@ -52,10 +52,13 @@
         <div class="card-panel white">
           <span class="card-title">Three Most Popular User Agents:</span>
           <% @url.top_three_rank(:user_agent).each do |agent| %>
-                <p>User Agent:<%= agent[0]%> Count: <%= agent[1] %> </p>
+                <p><span class="data"><%= agent[0]%></span> &nbsp &nbsp Count: <span class="data"><%= agent[1] %></span> </p>
         <% end %>
         </div>
       </div>
+
+
+
 
     </div>
   </div>

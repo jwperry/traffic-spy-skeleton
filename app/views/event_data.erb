@@ -11,7 +11,7 @@
         <div class="card-panel white">
           <span class="card-title">Events by Hour: </span>
           <% @event.event_by_hour.each do |k, v|  %>
-          <p>Hour: <%= k %>, Count: <%= v %>
+          <p>Hour: <span class="data"><%= k %></span>, Count: <span class="data"><%= v %></span>
           <% end %>
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div id="event_count" class="col s6">
         <div class="card-panel white">
           <span class="card-title">Total Event Count: </span>
-          <%= @event.total_event_count %>
+          <span class="data"><%= @event.total_event_count %></span>
         </div>
       </div>
 

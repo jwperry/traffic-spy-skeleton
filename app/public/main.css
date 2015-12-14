@@ -18,6 +18,10 @@ main {
     text-shadow: 1px 1px 30px #FF9800;
 }
 
+.section {
+  padding-top: 0px;
+}
+
 h1, h2 {
   text-align: center;
 }
@@ -63,15 +67,12 @@ span.data {
     color: #FF6A1E;
 }
 
-input#identifier_field {
+input#identifier_field, input#rootUrl_field {
     width: 700px;
     font-weight: 100;
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 10px;
-    color: #190707;
+    color: #fff;
     padding: 20px;
     font-size: 30px;
-    text-align: center;
 }
 
 button.btn.waves-effect.waves-light {
@@ -84,4 +85,26 @@ button.btn.waves-effect.waves-light {
   width: 700px;
   margin: 0 auto;
   text-align: center;
+}
+
+#register_form {
+    width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+::-webkit-input-placeholder {
+   color: #bbb;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #bbb;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #bbb;
+}
+
+:-ms-input-placeholder {
+   color: #bbb;
 }
