@@ -1,5 +1,5 @@
 <%= erb :"_id_navbar", locals: { identifier: @identifier } %>
-<div class="container app_details">
+<div id="path" class="container app_details">
   <div class="outer-panel">
     <h1>URL Specific Data</h1>
 
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="col s6">
+      <div id="path_verb_data" class="col s6">
         <div class="card-panel white">
           <span class="card-title">HTTP Verbs Used:</span>
           <% @url.used_http_verbs.each do |verb| %>
